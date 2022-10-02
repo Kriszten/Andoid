@@ -9,8 +9,14 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import com.example.smartcoffeemaker.databinding.ActivityMainBinding
+import com.example.smartcoffeemaker.data.QuotesApi
+import com.example.smartcoffeemaker.data.RetrofitHelper
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
+import android.util.Log
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import retrofit2.create
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
@@ -33,6 +39,17 @@ class MainActivity : AppCompatActivity() {
         binding.fab.setOnClickListener { view ->
             Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                 .setAction("Action", null).show()
+        }
+
+        //setContentView(R.layout.activity_main)
+
+        val quotesApi = RetrofitHelper.getInstance().create(QuotesApi::class.java)
+        // launching a new coroutine
+        GlobalScope.launch {
+            val result = quotesApi.getQuotes()
+            if (result != null)
+            // Checking the results
+                Log.d("ayush: ", result.body().toString())
         }
     }
 
@@ -57,4 +74,5 @@ class MainActivity : AppCompatActivity() {
         return navController.navigateUp(appBarConfiguration)
                 || super.onSupportNavigateUp()
     }
+
 }
