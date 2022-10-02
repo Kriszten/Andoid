@@ -2,5 +2,4 @@ Crtl click = navigate
 ctrl+alt+nyíl előre / vissza = ugrás az előző helyre
 shift+f6 = átnevezés
 alt+enter = gyorsmenü/quick fix, stb
-s
 trl+alt+L = pretty print
